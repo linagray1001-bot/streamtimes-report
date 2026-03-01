@@ -1,0 +1,24 @@
+{{ define "main" }}
+<article class="article-single">
+    <header class="article-header">
+        <div class="article-cats">
+            {{ range first 2 .Params.tags }}<a href="/tags/{{ . | urlize }}/" class="category">{{ . }}</a>{{ end }}
+        </div>
+        <h1>{{ .Title }}</h1>
+        {{ with .Description }}<p class="article-lead">{{ . }}</p>{{ end }}
+        <div class="article-info">
+            <span class="author">By {{ .Site.Params.author }}</span>
+            <time>{{ .Date.Format "January 02, 2006" }}</time>
+            <span class="read-time">{{ .ReadingTime }} min read</span>
+        </div>
+    </header>
+    {{ with .Params.image }}
+    <figure class="article-hero"><img src="{{ . }}" alt="{{ $.Title }}" loading="lazy"></figure>
+    {{ end }}
+    <div class="article-content">{{ .Content }}</div>
+    <nav class="article-nav">
+        {{ with .PrevInSection }}<a href="{{ .Permalink }}" class="prev">← {{ .Title }}</a>{{ end }}
+        {{ with .NextInSection }}<a href="{{ .Permalink }}" class="next">{{ .Title }} →</a>{{ end }}
+    </nav>
+</article>
+{{ end }}
