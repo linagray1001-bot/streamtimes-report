@@ -1,9 +1,10 @@
 baseURL = "https://example.com/"
 languageCode = "en-us"
 title = "StreamTimes Report"
-theme = ""
-paginate = 12
 enableRobotsTXT = true
+
+[pagination]
+  pagerSize = 12
 
 [params]
   description = "Streaming industry news and reports"
