@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.LanguageCode }}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} — {{ .Site.Title }}{{ end }}</title>
+    <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}">
+    <meta name="author" content="{{ .Site.Params.author }}">
+    <link rel="canonical" href="{{ .Permalink }}">
+    <meta property="og:title" content="{{ .Title }}">
+    <meta property="og:description"
+        content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}">
+    <meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
+    <meta property="og:url" content="{{ .Permalink }}">
+    {{ with .Params.image }}
+    <meta property="og:image" content="{{ . }}">{{ end }}
+    <meta name="twitter:card" content="summary_large_image">
+    {{ if .IsPage }}
+    <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"BlogPosting","headline":"{{ .Title }}","datePublished":"{{ .Date.Format "2006-01-02" }}","author":{"@type":"Person","name":"{{ .Site.Params.author }}"},"publisher":{"@type":"Organization","name":"{{ .Site.Title }}"},"mainEntityOfPage":"{{ .Permalink }}"}
+  </script>
+    {{ end }}
+    <link rel="stylesheet" href="/css/style.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Source+Sans+3:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <header class="site-header">
+        <div class="header-top">
+            <span class="date-line">{{ now.Format "Monday, January 02, 2006" }}</span>
+        </div>
+        <div class="header-main">
+            <a href="/" class="logo">{{ .Site.Title }}</a>
+        </div>
+        <nav class="header-nav">
+            <a href="/">Home</a>
+            <a href="/posts/">All Articles</a>
+            <a href="/tags/">Tags</a>
+            <a href="/categories/">Categories</a>
+        </nav>
+    </header>
+    <main class="container">
+        {{ block "main" . }}{{ end }}
+    </main>
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <p>&copy; {{ now.Year }} {{ .Site.Title }}</p>
+            <div class="footer-links">
+                <a href="/posts/">Archive</a>
+                <a href="/sitemap.xml">Sitemap</a>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
