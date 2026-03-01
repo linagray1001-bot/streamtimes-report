@@ -1,0 +1,21 @@
+{{ define "main" }}
+<section class="archive-page">
+    <h1>{{ .Title | default "All Articles" }}</h1>
+    <div class="articles-grid">
+        {{ range .Paginator.Pages }}
+        <article class="article-card">
+            {{ with .Params.image }}<img src="{{ . }}" alt="{{ $.Title }}" loading="lazy">{{ end }}
+            <div class="article-body">
+                <div class="article-meta">
+                    {{ range first 1 .Params.tags }}<span class="category">{{ . }}</span>{{ end }}
+                    <time>{{ .Date.Format "Jan 02, 2006" }}</time>
+                </div>
+                <h3><a href="{{ .Permalink }}">{{ .Title }}</a></h3>
+                <p>{{ .Summary | truncate 100 }}</p>
+            </div>
+        </article>
+        {{ end }}
+    </div>
+    {{ template "_internal/pagination.html" . }}
+</section>
+{{ end }}
