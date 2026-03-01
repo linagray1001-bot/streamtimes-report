@@ -1,0 +1,33 @@
+{{ define "main" }}
+<section class="front-page">
+    {{ $posts := where .Site.RegularPages "Section" "posts" }}
+    {{ with first 1 $posts }}
+    {{ range . }}
+    <article class="featured-story">
+        {{ with .Params.image }}<img src="{{ . }}" alt="{{ $.Title }}" loading="lazy">{{ end }}
+        <div class="featured-body">
+            <span class="featured-label">Featured Story</span>
+            <h2><a href="{{ .Permalink }}">{{ .Title }}</a></h2>
+            <p>{{ .Summary | truncate 200 }}</p>
+            <time>{{ .Date.Format "January 02, 2006" }}</time>
+        </div>
+    </article>
+    {{ end }}
+    {{ end }}
+    <div class="articles-grid">
+        {{ range after 1 (first 13 $posts) }}
+        <article class="article-card">
+            {{ with .Params.image }}<img src="{{ . }}" alt="{{ $.Title }}" loading="lazy">{{ end }}
+            <div class="article-body">
+                <div class="article-meta">
+                    {{ range first 1 .Params.tags }}<span class="category">{{ . }}</span>{{ end }}
+                    <time>{{ .Date.Format "Jan 02" }}</time>
+                </div>
+                <h3><a href="{{ .Permalink }}">{{ .Title }}</a></h3>
+                <p>{{ .Summary | truncate 100 }}</p>
+            </div>
+        </article>
+        {{ end }}
+    </div>
+</section>
+{{ end }}
